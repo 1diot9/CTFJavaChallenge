@@ -1,0 +1,131 @@
+.post-detail-container {
+    min-height: 100vh;
+    background: var(--bg-primary);
+}
+
+.post-detail-content {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 var(--spacing-xl);
+}
+
+.post-article {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    padding: 40px;
+    box-shadow: var(--shadow-sm);
+}
+
+.post-article .post-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.post-article .post-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    line-height: 1.3;
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.author-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.user-level-badge {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: var(--radius-md);
+    font-size: 12px;
+}
+
+.post-body {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-primary);
+    margin-bottom: 30px;
+}
+
+.post-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: 30px;
+}
+
+.post-gallery .gallery-item {
+    position: relative;
+    aspect-ratio: 4/3;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.post-gallery .gallery-item:hover {
+    transform: scale(1.02);
+}
+
+.post-gallery .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post-gallery .gallery-item .photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.post-gallery .gallery-item:hover .photo-overlay {
+    opacity: 1;
+}
+
+.post-gallery .gallery-item .photo-overlay i {
+    color: #fff;
+    font-size: 32px;
+}
+
+@media (max-width: 768px) {
+    .post-article {
+        padding: var(--spacing-xl);
+    }
+    
+    .post-article .post-header h1 {
+        font-size: 24px;
+    }
+    
+    .post-gallery {
+        grid-template-columns: 1fr;
+    }
+}
+

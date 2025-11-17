@@ -1,0 +1,87 @@
+# Most of the configuration items below are ignored when remote management is enabled.
+# Please refer to the following document for details:
+# https://rasp.baidu.com/doc/setup/others.html#java-standalone
+ 
+# <general settings>
+# 
+# dependency_check.enable: true
+# plugin.timeout.millis: 100
+# body.maxbytes: 12288
+# plugin.filter: true
+# plugin.maxstack: 100
+# ognl.expression.minlength: 30
+# clientip.header: ClientIP
+# lru.max_size: 100
+# lru.compare_enable: false
+# lru.compare_limit: 10240
+# inject.urlprefix:
+# log.maxburst: 100
+# log.maxbackup: 30
+# log.path:
+# decompile.enable: false
+# block.status_code: 302
+# request.param_encoding:
+# cpu.usage.percent: 0.9
+# cpu.usage.enable: false
+# cpu.usage.interval: 5
+# response.sampler_burst: 5
+# response.sampler_interval: 60
+#security.weak_passwords:
+#  - "111111"
+#  - "123"
+#  - "123123"
+#  - "123456"
+#  - "123456a"
+#  - "a123456"
+#  - "admin"
+#  - "both"
+#  - "manager"
+#  - "mysql"
+#  - "root"
+#  - "rootweblogic"
+#  - "tomcat"
+#  - "user"
+#  - "weblogic1"
+#  - "weblogic123"
+#  - "welcome1"
+hooks.ignore: http_output
+# debug.level: 0
+#hook.white:
+#  "localhost:8080/vulns/011-ssrf-commons-httpclient.jsp":
+#    - "sql"
+#    - "ssrf"
+#  "www.test.com/test2":
+#    - "sql"
+#    - "ssrf"
+inject.custom_headers:
+  X-Protected-By: OpenRASP
+#   X-Content-Type-Options: nosniff
+#   X-Frame-Options: deny
+#   X-XSS-Protection: 1; mode=block
+#   X-Download-Options: noopen
+
+# <response to malicious requests>
+# 
+#block.redirect_url: ""
+block.status_code: 201
+block.content_json: ""
+block.content_xml: ""
+block.content_html: "<!DOCTYPE html> <html lang=\"en\" > <head>   <meta charset=\"UTF-8\">   <title>Error 404: Page not found – Please Hack me !!! </title>   <link rel=\"stylesheet\" href=\"/404style.css\">  </head> <body> <div class=\"noise\"></div> <div class=\"overlay\"></div> <div class=\"terminal\">   <h1>Error <span class=\"errorcode\">404 Hacker, block by super rasp</span></h1>   <p class=\"output\">The page you are looking for might have been removed, had its name changed or is temporarily unavailable.</p>   <p class=\"output\">Please try to <a href=\"/\">go back</a> or <a href=\"/\">return to the homepage</a>.</p>   <p class=\"output\">Try RCE.</p> </div> </body> </html> "
+
+# <remote management>
+#
+# cloud.enable: true
+# cloud.backend_url: http://XXX
+# cloud.app_id: XXX
+# cloud.app_secret: XXX
+# cloud.heartbeat_interval: 90
+
+# <syslog tcp configuration>
+#
+# syslog.enable: false
+# syslog.url: tcp://1.1.1.1:514
+# syslog.tag: OpenRASP
+# syslog.reconnect_interval: 300000
+# syslog.facility: 1
+
+

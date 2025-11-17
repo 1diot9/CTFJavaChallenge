@@ -1,0 +1,14 @@
+package org.springframework.jmx.access;
+
+import org.springframework.jmx.JmxException;
+
+/* loaded from: agent.jar:BOOT-INF/lib/spring-context-6.1.3.jar:org/springframework/jmx/access/InvocationFailureException.class */
+public class InvocationFailureException extends JmxException {
+    public InvocationFailureException(String msg) {
+        super(msg);
+    }
+
+    public InvocationFailureException(String msg, Throwable cause) {
+        super(msg, cause);
+    }
+}

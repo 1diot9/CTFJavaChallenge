@@ -1,0 +1,70 @@
+<%- include('partials/header', { 
+    title: title, 
+    user: typeof user !== 'undefined' ? user : null,
+    additionalCSS: ['/css/auth.css']
+}) %>
+
+<div class="card fade-in">
+    <div class="brand-accent"></div>
+    
+    <h1 class="card-title">Welcome Back</h1>
+    <p class="card-subtitle">Login to Unified Identity Authentication Center</p>
+
+    <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+        <div class="alert alert-error">
+            <% errors.forEach(error => { %>
+                <div><%= error.msg %></div>
+            <% }); %>
+        </div>
+    <% } %>
+
+    <form method="POST" action="/login">
+        <input type="hidden" name="samlRequest" value="<%= typeof samlRequest !== 'undefined' ? samlRequest : '' %>">
+        <input type="hidden" name="relayState" value="<%= typeof relayState !== 'undefined' ? relayState : '' %>">
+        
+        <% if (typeof oauth2Params !== 'undefined' && oauth2Params.clientId) { %>
+        <input type="hidden" name="oauth2ClientId" value="<%= oauth2Params.clientId %>">
+        <input type="hidden" name="oauth2RedirectUri" value="<%= oauth2Params.redirectUri %>">
+        <input type="hidden" name="oauth2ResponseType" value="<%= oauth2Params.responseType %>">
+        <input type="hidden" name="oauth2State" value="<%= oauth2Params.state %>">
+        <input type="hidden" name="oauth2Scope" value="<%= oauth2Params.scope %>">
+        <% } %>
+
+        <div class="form-group">
+            <label class="form-label" for="username">Username</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="username" 
+                name="username" 
+                value="<%= typeof formData !== 'undefined' ? formData.username || '' : '' %>"
+                placeholder="Enter username"
+                required 
+                autofocus>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <input 
+                type="password" 
+                class="form-control" 
+                id="password" 
+                name="password" 
+                placeholder="Enter password"
+                required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg mt-2">Login</button>
+
+        <div class="text-center mt-3">
+            <p>
+                Don't have an account?
+                <a href="/register" class="link">Register now</a>
+                <span style="margin: 0 8px; color: var(--gray-5);">|</span>
+                <a href="/" class="link">Back to home</a>
+            </p>
+        </div>
+    </form>
+</div>
+
+<%- include('partials/footer') %>

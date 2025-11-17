@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  blog-plus-app:
+    build:
+      context: blog
+      dockerfile: Dockerfile
+    container_name: blog-plus-app
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      - DB_HOST=blog-plus-mysql
+      - DB_NAME=author
+      - DB_USER=author
+      - DB_PASS=author
+
+  blog-plus-mysql:
+    image: mysql:8.0
+    container_name: blog-plus-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: author
+      MYSQL_USER: author
+      MYSQL_PASSWORD: author
+    volumes:
+      - ./blog/config/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  blog-plus-bot:
+    build:
+      context: bot
+      dockerfile: Dockerfile
+    container_name: blog-plus-bot
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      - FLAG=RCTF{test_flag}
+      - ADMIN_EMAIL=admin@rois.team
+      - ADMIN_PASSWD=admin123
+      - BLOG_HOST=blog-plus-app

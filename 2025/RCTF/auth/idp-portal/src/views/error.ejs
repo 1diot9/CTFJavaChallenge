@@ -1,0 +1,23 @@
+<%- include('partials/header', { 
+    title: title, 
+    user: typeof user !== 'undefined' ? user : null,
+    additionalCSS: ['/css/error.css']
+}) %>
+
+<div class="card fade-in">
+    <div class="error-accent"></div>
+    
+    <div class="error-icon">!</div>
+    
+    <h1 class="card-title"><%= title %></h1>
+    <div class="alert alert-error text-center">
+        <%= message %>
+    </div>
+    <div class="text-center mt-3">
+        <a href="/portal" class="link">Back to Application Center</a>
+        <span style="margin: 0 8px; color: var(--gray-5);">|</span>
+        <a href="/" class="link">Back to Home</a>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

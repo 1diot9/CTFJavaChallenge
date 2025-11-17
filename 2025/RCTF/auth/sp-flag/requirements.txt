@@ -1,0 +1,7 @@
+Flask==2.3.2
+lxml==4.9.3
+cryptography==41.0.3
+Werkzeug==2.3.6
+requests==2.31.0
+
+

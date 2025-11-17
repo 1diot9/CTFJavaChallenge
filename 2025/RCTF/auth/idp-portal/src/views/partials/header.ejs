@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - Unified Identity Authentication Center</title>
+    
+    <link rel="stylesheet" href="/css/main.css">
+    
+    <% if (typeof additionalCSS !== 'undefined' && additionalCSS) { %>
+        <% additionalCSS.forEach(css => { %>
+    <link rel="stylesheet" href="<%= css %>">
+        <% }); %>
+    <% } %>
+</head>
+<body>
+    <% if (typeof user !== 'undefined' && user) { %>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="/portal" class="navbar-brand">IDP Application Center</a>
+            <div class="navbar-menu">
+                <a href="/portal">Application Services</a>
+                <div class="user-info">
+                    <div class="user-avatar"><%= user.display_name ? user.display_name[0] : user.username[0] %></div>
+                    <span><%= user.display_name || user.username %></span>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <% } %>
+    
+    <div class="container">

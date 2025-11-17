@@ -1,0 +1,22 @@
+package cn.hutool.log.dialect.commons;
+
+import cn.hutool.log.dialect.log4j.Log4jLog;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.impl.Log4JLogger;
+
+/* loaded from: agent.jar:BOOT-INF/lib/hutool-all-5.8.16.jar:cn/hutool/log/dialect/commons/ApacheCommonsLog4JLog.class */
+public class ApacheCommonsLog4JLog extends Log4jLog {
+    private static final long serialVersionUID = -6843151523380063975L;
+
+    public ApacheCommonsLog4JLog(Log logger) {
+        super(((Log4JLogger) logger).getLogger());
+    }
+
+    public ApacheCommonsLog4JLog(Class<?> clazz) {
+        super(clazz);
+    }
+
+    public ApacheCommonsLog4JLog(String name) {
+        super(name);
+    }
+}

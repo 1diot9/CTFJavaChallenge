@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Error</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f5f5f5; }
+        .container { background: white; padding: 30px; border-radius: 8px; 
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 600px; 
+                    margin: 100px auto; text-align: center; }
+        h1 { color: #c00; }
+        .error { background-color: #ffe6e6; border: 1px solid #ff0000; 
+                padding: 15px; border-radius: 4px; margin: 20px 0; }
+        .btn { display: inline-block; padding: 15px 30px; margin: 10px 5px; 
+               background-color: #3498db; color: white; text-decoration: none; 
+               border-radius: 4px; font-size: 16px; }
+        .btn:hover { background-color: #2980b9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="font-size: 4rem; margin-bottom: 1rem;">⚠️</div>
+        <h1>Error Occurred</h1>
+        <div class="error">
+            {{ error }}
+        </div>
+        <div style="margin-top: 2rem;">
+            <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+            <a href="{{ url_for('saml_login') }}" class="btn">Login Again</a>
+        </div>
+    </div>
+</body>
+</html>

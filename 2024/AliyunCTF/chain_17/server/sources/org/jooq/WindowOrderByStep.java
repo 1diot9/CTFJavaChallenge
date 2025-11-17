@@ -1,0 +1,15 @@
+package org.jooq;
+
+import java.util.Collection;
+import org.jetbrains.annotations.NotNull;
+
+/* loaded from: server.jar:BOOT-INF/lib/jooq-3.19.3.jar:org/jooq/WindowOrderByStep.class */
+public interface WindowOrderByStep<T> extends WindowFinalStep<T> {
+    @Support({SQLDialect.CUBRID, SQLDialect.DUCKDB, SQLDialect.FIREBIRD, SQLDialect.H2, SQLDialect.MARIADB, SQLDialect.MYSQL, SQLDialect.POSTGRES, SQLDialect.SQLITE, SQLDialect.TRINO, SQLDialect.YUGABYTEDB})
+    @NotNull
+    WindowRowsStep<T> orderBy(OrderField<?>... orderFieldArr);
+
+    @Support({SQLDialect.CUBRID, SQLDialect.DUCKDB, SQLDialect.FIREBIRD, SQLDialect.H2, SQLDialect.MARIADB, SQLDialect.MYSQL, SQLDialect.POSTGRES, SQLDialect.SQLITE, SQLDialect.TRINO, SQLDialect.YUGABYTEDB})
+    @NotNull
+    WindowRowsStep<T> orderBy(Collection<? extends OrderField<?>> collection);
+}

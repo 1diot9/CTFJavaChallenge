@@ -1,0 +1,71 @@
+package org.jooq.util.sqlite;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.Year;
+import java.util.UUID;
+import org.jooq.DataType;
+import org.jooq.JSON;
+import org.jooq.JSONB;
+import org.jooq.SQLDialect;
+import org.jooq.impl.BuiltInDataType;
+import org.jooq.impl.SQLDataType;
+import org.jooq.types.UByte;
+import org.jooq.types.UInteger;
+import org.jooq.types.ULong;
+import org.jooq.types.UShort;
+
+@Deprecated(forRemoval = true, since = "3.11")
+/* loaded from: server.jar:BOOT-INF/lib/jooq-3.19.3.jar:org/jooq/util/sqlite/SQLiteDataType.class */
+public class SQLiteDataType {
+    private static final SQLDialect FAMILY = SQLDialect.SQLITE;
+    public static final DataType<Byte> TINYINT = new BuiltInDataType(FAMILY, SQLDataType.TINYINT, "tinyint");
+    public static final DataType<Short> SMALLINT = new BuiltInDataType(FAMILY, SQLDataType.SMALLINT, "smallint");
+    public static final DataType<Short> INT2 = new BuiltInDataType(FAMILY, SQLDataType.SMALLINT, "int2");
+    public static final DataType<Integer> INT = new BuiltInDataType(FAMILY, SQLDataType.INTEGER, "int");
+    public static final DataType<Integer> INTEGER = new BuiltInDataType(FAMILY, SQLDataType.INTEGER, "integer");
+    public static final DataType<Integer> MEDIUMINT = new BuiltInDataType(FAMILY, SQLDataType.INTEGER, "mediumint");
+    public static final DataType<Long> INT8 = new BuiltInDataType(FAMILY, SQLDataType.BIGINT, "int8");
+    public static final DataType<Long> BIGINT = new BuiltInDataType(FAMILY, SQLDataType.BIGINT, "bigint");
+    public static final DataType<BigInteger> UNSIGNEDBIGINT = new BuiltInDataType(FAMILY, SQLDataType.DECIMAL_INTEGER, "unsigned big int");
+    public static final DataType<Double> DOUBLE = new BuiltInDataType(FAMILY, SQLDataType.DOUBLE, "double");
+    public static final DataType<Double> DOUBLEPRECISION = new BuiltInDataType(FAMILY, SQLDataType.DOUBLE, "double precision");
+    public static final DataType<Float> REAL = new BuiltInDataType(FAMILY, SQLDataType.REAL, "real");
+    public static final DataType<Float> FLOAT = new BuiltInDataType(FAMILY, SQLDataType.REAL, "float");
+    public static final DataType<BigDecimal> NUMERIC = new BuiltInDataType(FAMILY, SQLDataType.NUMERIC, "numeric");
+    public static final DataType<BigDecimal> DECIMAL = new BuiltInDataType(FAMILY, SQLDataType.DECIMAL, "decimal");
+    public static final DataType<String> LONGVARCHAR = new BuiltInDataType(FAMILY, SQLDataType.LONGVARCHAR, "longvarchar");
+    public static final DataType<String> CHAR = new BuiltInDataType(FAMILY, SQLDataType.CHAR, "char");
+    public static final DataType<String> CHARACTER = new BuiltInDataType(FAMILY, SQLDataType.CHAR, "character");
+    public static final DataType<String> VARCHAR = new BuiltInDataType(FAMILY, SQLDataType.VARCHAR, "varchar");
+    public static final DataType<String> VARYINGCHARACTER = new BuiltInDataType(FAMILY, SQLDataType.VARCHAR, "varying character");
+    public static final DataType<String> NCHAR = new BuiltInDataType(FAMILY, SQLDataType.NCHAR, "nchar");
+    public static final DataType<String> NATIVECHARACTER = new BuiltInDataType(FAMILY, SQLDataType.NCHAR, "native character");
+    public static final DataType<String> NVARCHAR = new BuiltInDataType(FAMILY, SQLDataType.NVARCHAR, "nvarchar");
+    public static final DataType<String> CLOB = new BuiltInDataType(FAMILY, SQLDataType.CLOB, "clob");
+    public static final DataType<String> TEXT = new BuiltInDataType(FAMILY, SQLDataType.CLOB, "text");
+    public static final DataType<Boolean> BOOLEAN = new BuiltInDataType(FAMILY, SQLDataType.BOOLEAN, "boolean");
+    public static final DataType<Date> DATE = new BuiltInDataType(FAMILY, SQLDataType.DATE, "date");
+    public static final DataType<Timestamp> DATETIME = new BuiltInDataType(FAMILY, SQLDataType.TIMESTAMP, "datetime");
+    public static final DataType<byte[]> LONGVARBINARY = new BuiltInDataType(FAMILY, SQLDataType.LONGVARBINARY, "longvarbinary");
+    public static final DataType<byte[]> BLOB = new BuiltInDataType(FAMILY, SQLDataType.BLOB, "blob");
+    protected static final DataType<byte[]> __BINARY = new BuiltInDataType(FAMILY, SQLDataType.BINARY, "longvarbinary");
+    protected static final DataType<Boolean> __BIT = new BuiltInDataType(FAMILY, SQLDataType.BIT, "boolean");
+    protected static final DataType<Double> __FLOAT = new BuiltInDataType(FAMILY, SQLDataType.FLOAT, "double");
+    protected static final DataType<String> __NCLOB = new BuiltInDataType(FAMILY, SQLDataType.NCLOB, "nclob");
+    protected static final DataType<String> __LONGNVARCHAR = new BuiltInDataType(FAMILY, SQLDataType.LONGNVARCHAR, "nvarchar");
+    protected static final DataType<Time> __TIME = new BuiltInDataType(FAMILY, SQLDataType.TIME, "datetime");
+    protected static final DataType<byte[]> __VARBINARY = new BuiltInDataType(FAMILY, SQLDataType.VARBINARY, "longvarbinary");
+    protected static final DataType<UByte> __TINYINTUNSIGNED = new BuiltInDataType(FAMILY, SQLDataType.TINYINTUNSIGNED, "smallint");
+    protected static final DataType<UShort> __SMALLINTUNSIGNED = new BuiltInDataType(FAMILY, SQLDataType.SMALLINTUNSIGNED, "int");
+    protected static final DataType<UInteger> __INTEGERUNSIGNED = new BuiltInDataType(FAMILY, SQLDataType.INTEGERUNSIGNED, "bigint");
+    protected static final DataType<ULong> __BIGINTUNSIGNED = new BuiltInDataType(FAMILY, SQLDataType.BIGINTUNSIGNED, "numeric");
+    protected static final DataType<JSON> __JSON = new BuiltInDataType(FAMILY, SQLDataType.JSON, "clob");
+    protected static final DataType<JSONB> __JSONB = new BuiltInDataType(FAMILY, SQLDataType.JSONB, "blob");
+    protected static final DataType<Year> __YEAR = new BuiltInDataType(FAMILY, SQLDataType.YEAR, "smallint");
+    protected static final DataType<UUID> __UUID = new BuiltInDataType(FAMILY, SQLDataType.UUID, "varchar");
+    public static final DataType<Object> NULL = new BuiltInDataType(FAMILY, SQLDataType.OTHER, "null");
+}

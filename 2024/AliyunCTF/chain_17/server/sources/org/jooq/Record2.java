@@ -1,0 +1,57 @@
+package org.jooq;
+
+import org.jetbrains.annotations.NotNull;
+
+/* loaded from: server.jar:BOOT-INF/lib/jooq-3.19.3.jar:org/jooq/Record2.class */
+public interface Record2<T1, T2> extends Record {
+    @Override // org.jooq.Fields
+    @NotNull
+    Row2<T1, T2> fieldsRow();
+
+    @Override // org.jooq.Record
+    @NotNull
+    Row2<T1, T2> valuesRow();
+
+    @NotNull
+    Field<T1> field1();
+
+    @NotNull
+    Field<T2> field2();
+
+    T1 value1();
+
+    T2 value2();
+
+    @NotNull
+    Record2<T1, T2> value1(T1 t1);
+
+    @NotNull
+    Record2<T1, T2> value2(T2 t2);
+
+    @NotNull
+    Record2<T1, T2> values(T1 t1, T2 t2);
+
+    @Override // org.jooq.Record
+    @NotNull
+    <T> Record2<T1, T2> with(Field<T> field, T t);
+
+    @Override // org.jooq.Record
+    @NotNull
+    <T, U> Record2<T1, T2> with(Field<T> field, U u, Converter<? extends T, ? super U> converter);
+
+    T1 component1();
+
+    T2 component2();
+
+    @Override // org.jooq.Record
+    @NotNull
+    /* bridge */ /* synthetic */ default Record with(Field field, Object obj, Converter converter) {
+        return with(field, (Field) obj, (Converter<? extends T, ? super Field>) converter);
+    }
+
+    @Override // org.jooq.Record
+    @NotNull
+    /* bridge */ /* synthetic */ default Record with(Field field, Object obj) {
+        return with((Field<Field>) field, (Field) obj);
+    }
+}

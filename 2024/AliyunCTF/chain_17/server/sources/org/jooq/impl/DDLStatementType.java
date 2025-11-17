@@ -1,0 +1,38 @@
+package org.jooq.impl;
+
+/* loaded from: server.jar:BOOT-INF/lib/jooq-3.19.3.jar:org/jooq/impl/DDLStatementType.class */
+enum DDLStatementType {
+    ALTER_DATABASE,
+    ALTER_DOMAIN,
+    ALTER_FUNCTION,
+    ALTER_INDEX,
+    ALTER_PROCEDURE,
+    ALTER_SCHEMA,
+    ALTER_SEQUENCE,
+    ALTER_TABLE,
+    ALTER_TRIGGER,
+    ALTER_TYPE,
+    ALTER_VIEW,
+    CREATE_DATABASE,
+    CREATE_DOMAIN,
+    CREATE_FUNCTION,
+    CREATE_INDEX,
+    CREATE_PROCEDURE,
+    CREATE_SCHEMA,
+    CREATE_SEQUENCE,
+    CREATE_TABLE,
+    CREATE_TRIGGER,
+    CREATE_TYPE,
+    CREATE_VIEW,
+    DROP_DATABASE,
+    DROP_DOMAIN,
+    DROP_FUNCTION,
+    DROP_INDEX,
+    DROP_PROCEDURE,
+    DROP_SCHEMA,
+    DROP_SEQUENCE,
+    DROP_TABLE,
+    DROP_TRIGGER,
+    DROP_TYPE,
+    DROP_VIEW
+}

@@ -1,0 +1,145 @@
+<%- include('partials/header', { 
+    title: title, 
+    user: typeof user !== 'undefined' ? user : null,
+    additionalCSS: ['/css/auth.css']
+}) %>
+
+<div class="card card-large fade-in">
+    <div class="brand-accent"></div>
+    
+    <div class="register-header">
+    <h1 class="card-title">Create Account</h1>
+        <p class="card-subtitle">Join Unified Identity Authentication Center and start your journey</p>
+    </div>
+
+    <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+        <div class="alert alert-error">
+            <% errors.forEach(error => { %>
+                <div><%= error.msg %></div>
+            <% }); %>
+        </div>
+    <% } %>
+
+    <form method="POST" action="/register" id="registerForm">
+        <h3 class="register-section-title">Account Type</h3>
+        <div class="form-row">
+            <div class="form-group form-group-full">
+                <label class="form-label" for="type">Select Registration Type</label>
+            <select class="form-select" id="type" name="type" required>
+                <option value="0" <%= typeof formData !== 'undefined' && formData.type === '0' ? 'selected' : '' %>>
+                    Invited User - Full Access
+                </option>
+                <option value="1" <%= typeof formData !== 'undefined' && formData.type === '1' ? 'selected' : '' %>>
+                    Regular User - Limited Access
+                </option>
+            </select>
+                <span class="form-hint">Invited users must provide a valid invitation code to complete registration</span>
+        </div>
+
+            <div class="form-group form-group-full" id="invitationCodeGroup">
+            <label class="form-label" for="invitationCode">Invitation Code</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="invitationCode" 
+                name="invitationCode" 
+                value="<%= typeof formData !== 'undefined' ? formData.invitationCode || '' : '' %>"
+                    placeholder="Enter invitation code">
+            </div>
+        </div>
+
+        <div class="form-divider"></div>
+
+        <h3 class="register-section-title">Basic Information</h3>
+        <div class="form-row">
+        <div class="form-group">
+            <label class="form-label" for="username">Username</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="username" 
+                name="username" 
+                value="<%= typeof formData !== 'undefined' ? formData.username || '' : '' %>"
+                    placeholder="3-50 characters"
+                required 
+                autofocus>
+                <span class="form-hint">Letters, numbers, and underscores</span>
+        </div>
+
+        <div class="form-group">
+                <label class="form-label" for="email">Email Address</label>
+            <input 
+                type="email" 
+                class="form-control" 
+                id="email" 
+                name="email" 
+                value="<%= typeof formData !== 'undefined' ? formData.email || '' : '' %>"
+                placeholder="your@email.com"
+                required>
+                <span class="form-hint">For account verification</span>
+        </div>
+
+        <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+            <input 
+                type="password" 
+                class="form-control" 
+                id="password" 
+                name="password" 
+                placeholder="At least 6 characters"
+                required>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="confirmPassword">Confirm Password</label>
+            <input 
+                type="password" 
+                class="form-control" 
+                id="confirmPassword" 
+                name="confirmPassword" 
+                placeholder="Re-enter password"
+                required>
+        </div>
+        </div>
+
+        <div class="form-divider"></div>
+
+        <h3 class="register-section-title">Personal Information (Optional)</h3>
+        <div class="form-row">
+        <div class="form-group">
+                <label class="form-label" for="displayName">Display Name</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="displayName" 
+                name="displayName" 
+                value="<%= typeof formData !== 'undefined' ? formData.displayName || '' : '' %>"
+                placeholder="Default to username">
+        </div>
+
+        <div class="form-group">
+                <label class="form-label" for="department">Department</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="department" 
+                name="department" 
+                value="<%= typeof formData !== 'undefined' ? formData.department || '' : '' %>"
+                    placeholder="e.g., IT Department">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg mt-4">Create Account</button>
+
+        <div class="text-center mt-3">
+            <p>
+                Already have an account?
+                <a href="/login" class="link">Login now</a>
+                <span style="margin: 0 8px; color: var(--gray-5);">|</span>
+                <a href="/" class="link">Back to home</a>
+            </p>
+        </div>
+    </form>
+</div>
+
+<%- include('partials/footer', { additionalJS: ['/js/register.js'] }) %>

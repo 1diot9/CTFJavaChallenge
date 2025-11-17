@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>SAML Authentication System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f5f5f5; }
+        .container { background: white; padding: 30px; border-radius: 8px; 
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 600px; 
+                    margin: 100px auto; text-align: center; }
+        h1 { color: #2c3e50; }
+        .btn { display: inline-block; padding: 15px 30px; margin: 20px 5px; 
+               background-color: #3498db; color: white; text-decoration: none; 
+               border-radius: 4px; font-size: 16px; }
+        .btn:hover { background-color: #2980b9; }
+        .info { background-color: #ecf0f1; padding: 15px; border-radius: 4px; 
+               margin-top: 20px; text-align: left; }
+        .warning { background-color: #fff3cd; border: 1px solid #ffc107; 
+                   padding: 15px; border-radius: 4px; margin-top: 20px; color: #856404; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SAML Authentication System</h1>
+        <p>Please authenticate via SAML</p>
+        
+        <a href="{{ url_for('saml_login') }}" class="btn">Login</a>
+        
+        <div class="warning">
+            <h3>Notice</h3>
+            <p><strong>Only administrators can get the Flag</strong></p>
+        </div>
+        
+        <div class="info">
+            <h3>Configuration Information</h3>
+            <p><strong>Entity ID:</strong> {{ config.sp_entity_id }}</p>
+            <p><strong>ACS URL:</strong> {{ config.sp_acs_url }}</p>
+            <p><strong>SLO URL:</strong> {{ config.sp_slo_url }}</p>
+        </div>
+    </div>
+</body>
+</html>

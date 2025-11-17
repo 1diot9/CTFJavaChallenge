@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  server:
+    build: ./server
+    container_name: chain17_server
+    restart: always
+  agent:
+    build: ./agent
+    container_name: chain17_agent
+    restart: always
+    ports:
+      - '5000:5000'

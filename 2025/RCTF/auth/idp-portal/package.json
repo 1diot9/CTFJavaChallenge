@@ -1,0 +1,51 @@
+{
+  "name": "idp-portal",
+  "version": "1.0.0",
+  "description": "统一身份认证中心 - OAuth2 & SAML应用服务中心",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "migrate": "node src/scripts/migrate.js",
+    "migrate:up": "node src/scripts/migrate.js up",
+    "migrate:down": "node src/scripts/migrate.js down",
+    "migrate:status": "node src/scripts/migrate.js status",
+    "generate-keys": "node src/scripts/generate-keys.js",
+    "add-admin": "node src/scripts/add-admin.js"
+  },
+  "keywords": [
+    "oauth2",
+    "saml",
+    "sso",
+    "idp",
+    "authentication"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@xmldom/xmldom": "^0.8.11",
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "express-validator": "^7.3.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.1",
+    "mysql2": "^3.15.3",
+    "node-forge": "^1.3.1",
+    "oauth2-server": "^3.1.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "uuid": "^13.0.0",
+    "xml-crypto": "^6.1.2",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}

@@ -1,0 +1,6 @@
+FROM 1panel/maxkb:v2.3.0
+COPY flag /root/flag
+
+
+HINT: The intended exploit should work on both RootKB(v2.3.1) and RootKB--(v2.3.0). Of course, you don’t have to follow my intended.
+

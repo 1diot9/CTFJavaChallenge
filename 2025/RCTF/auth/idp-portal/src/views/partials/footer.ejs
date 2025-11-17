@@ -1,0 +1,13 @@
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Unified Identity Authentication Center | IDP Portal</p>
+    </footer>
+    
+    <% if (typeof additionalJS !== 'undefined' && additionalJS) { %>
+        <% additionalJS.forEach(js => { %>
+    <script src="<%= js %>"></script>
+        <% }); %>
+    <% } %>
+</body>
+</html>

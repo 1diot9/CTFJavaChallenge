@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  photographer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: photographer
+    ports:
+      - "9010:80"
+    environment:
+      - FLAG=RCTF{test_flag}
+

@@ -1,0 +1,18 @@
+package org.jooq;
+
+import org.jetbrains.annotations.NotNull;
+
+/* loaded from: server.jar:BOOT-INF/lib/jooq-3.19.3.jar:org/jooq/DerivedColumnList16.class */
+public interface DerivedColumnList16 extends QueryPart {
+    @Support
+    @NotNull
+    <R extends Record16<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>> CommonTableExpression<R> as(ResultQuery<R> resultQuery);
+
+    @Support
+    @NotNull
+    <R extends Record16<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>> CommonTableExpression<R> asMaterialized(ResultQuery<R> resultQuery);
+
+    @Support
+    @NotNull
+    <R extends Record16<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>> CommonTableExpression<R> asNotMaterialized(ResultQuery<R> resultQuery);
+}

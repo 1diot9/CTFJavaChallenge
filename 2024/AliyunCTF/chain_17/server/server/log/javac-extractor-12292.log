@@ -1,0 +1,28 @@
+[2025-04-22 16:25:26] [javac-extractor-12292] Starting extraction for:
+                                              sun.java.command=com.semmle.extractor.java.JavaExtractor --jdk-version 17 --javac-args @@@D:\BaiduSyncdisk\ctf-challenges\1diot9\java-challenges\AliyunCTF\24\attachment\chain_17\server\server\log\ext\javac.args
+                                              user.dir=D:\BaiduSyncdisk\ctf-challenges\1diot9\java-challenges\AliyunCTF\24\attachment\chain_17\server\sources
+[2025-04-22 16:25:26] [javac-extractor-12292] Compilation name D:/BaiduSyncdisk/ctf-challenges/1diot9/java-challenges/AliyunCTF/24/attachment/chain_17/server/server/trap/java/diagnostics/diagnostic.trap.gz
+[2025-04-22 16:25:48] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/ch/qos/logback/logback-classic/1.4.8/logback-classic-1.4.8.jar
+[2025-04-22 16:25:49] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/io/github/virtualdogbert/logback-groovy-config/1.14.4/logback-groovy-config-1.14.4.jar
+[2025-04-22 16:25:50] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/ch/qos/logback/logback-classic/1.4.8/logback-classic-1.4.8-tests.jar
+[2025-04-22 16:25:50] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/com/github/tony19/logback-android-classic/1.1.1-6/logback-android-classic-1.1.1-6-tests.jar
+[2025-04-22 16:25:51] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/com/hynnet/logback-classic/1.1.3/logback-classic-1.1.3.jar
+[2025-04-22 16:25:51] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/com/github/gv2011/logback/logback-classic/1.3.5/logback-classic-1.3.5.jar
+[2025-04-22 16:25:52] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/com/github/tony19/logback-android-classic/1.1.1-6/logback-android-classic-1.1.1-6.jar
+[2025-04-22 16:25:52] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/ch/qos/logback/logback-core/1.4.8/logback-core-1.4.8.jar
+[2025-04-22 16:25:53] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/com/github/tony19/logback-android-core/1.1.1-6/logback-android-core-1.1.1-6.jar
+[2025-04-22 16:25:53] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/com/twitter/inject-logback_2.11/21.2.0/inject-logback_2.11-21.2.0.jar
+[2025-04-22 16:25:54] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/ch/qos/logback/logback-core/1.4.8/logback-core-1.4.8-tests.jar
+[2025-04-22 16:25:54] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/com/github/tony19/logback-android-core/1.1.1-6/logback-android-core-1.1.1-6-tests.jar
+[2025-04-22 16:25:55] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/com/hynnet/logback-core/1.1.3/logback-core-1.1.3.jar
+[2025-04-22 16:25:55] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/com/github/gv2011/logback/logback-core/1.3.5/logback-core-1.3.5.jar
+[2025-04-22 16:25:56] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/br/com/damsete/logback-s3-rolling-policy/0.0.1/logback-s3-rolling-policy-0.0.1.jar
+[2025-04-22 16:25:56] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/org/zalando/stups/logback-s3-appender/0.2/logback-s3-appender-0.2.jar
+[2025-04-22 16:25:56] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/com/github/dekobon/manta-logback-rollover/1.0.2/manta-logback-rollover-1.0.2.jar
+[2025-04-22 16:25:57] [javac-extractor-12292]   Adding container RemoteArchiveContainer[https://repo.maven.apache.org/maven2, com.hynnet:logback-core:jar:1.1.3] to the classpath
+[2025-04-22 16:25:57] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/org/ops4j/pax/logging/pax-logging-logback/2.2.2/pax-logging-logback-2.2.2.jar
+[2025-04-22 16:25:57] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.15.2/jackson-annotations-2.15.2.jar
+[2025-04-22 16:25:58] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-core/2.15.2/jackson-core-2.15.2.jar
+[2025-04-22 16:25:58] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/com/jwebmp/jackson/core/jackson-core/0.66.0.1/jackson-core-0.66.0.1.jar
+[2025-04-22 16:25:59] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/io/openharmony/tpc/thirdlib/logansquare/1.0.3/logansquare-1.0.3.jar
+[2025-04-22 16:25:59] [javac-extractor-12292] Fetch https://repo.maven.apache.org/maven2/com/bazaarvoice/jsonpps/jsonpps/1.1/jsonpps-1.1.jar

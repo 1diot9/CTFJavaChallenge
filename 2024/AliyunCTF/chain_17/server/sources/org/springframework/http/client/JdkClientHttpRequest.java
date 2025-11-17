@@ -1,0 +1,166 @@
+package org.springframework.http.client;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.ByteBuffer;
+import java.time.Duration;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Flow;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import org.apache.tomcat.websocket.Constants;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.StreamingHttpOutputMessage;
+import org.springframework.http.client.OutputStreamPublisher;
+import org.springframework.lang.Nullable;
+import org.springframework.util.StreamUtils;
+import org.springframework.util.StringUtils;
+
+/* loaded from: server.jar:BOOT-INF/lib/spring-web-6.1.3.jar:org/springframework/http/client/JdkClientHttpRequest.class */
+class JdkClientHttpRequest extends AbstractStreamingClientHttpRequest {
+    private static final OutputStreamPublisher.ByteMapper<ByteBuffer> BYTE_MAPPER = new ByteBufferMapper();
+    private static final Set<String> DISALLOWED_HEADERS = disallowedHeaders();
+    private final HttpClient httpClient;
+    private final HttpMethod method;
+    private final URI uri;
+    private final Executor executor;
+
+    @Nullable
+    private final Duration timeout;
+
+    public JdkClientHttpRequest(HttpClient httpClient, URI uri, HttpMethod method, Executor executor, @Nullable Duration readTimeout) {
+        this.httpClient = httpClient;
+        this.uri = uri;
+        this.method = method;
+        this.executor = executor;
+        this.timeout = readTimeout;
+    }
+
+    @Override // org.springframework.http.HttpRequest
+    public HttpMethod getMethod() {
+        return this.method;
+    }
+
+    @Override // org.springframework.http.HttpRequest
+    public URI getURI() {
+        return this.uri;
+    }
+
+    @Override // org.springframework.http.client.AbstractStreamingClientHttpRequest
+    protected ClientHttpResponse executeInternal(HttpHeaders headers, @Nullable StreamingHttpOutputMessage.Body body) throws IOException {
+        HttpResponse<InputStream> response;
+        try {
+            HttpRequest request = buildRequest(headers, body);
+            if (this.timeout != null) {
+                response = (HttpResponse) this.httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofInputStream()).get(this.timeout.toMillis(), TimeUnit.MILLISECONDS);
+            } else {
+                response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
+            }
+            return new JdkClientHttpResponse(response);
+        } catch (UncheckedIOException ex) {
+            throw ex.getCause();
+        } catch (InterruptedException ex2) {
+            Thread.currentThread().interrupt();
+            throw new IOException("Request was interrupted: " + ex2.getMessage(), ex2);
+        } catch (ExecutionException ex3) {
+            Throwable cause = ex3.getCause();
+            if (cause instanceof UncheckedIOException) {
+                UncheckedIOException uioEx = (UncheckedIOException) cause;
+                throw uioEx.getCause();
+            }
+            if (cause instanceof RuntimeException) {
+                RuntimeException rtEx = (RuntimeException) cause;
+                throw rtEx;
+            }
+            if (cause instanceof IOException) {
+                IOException ioEx = (IOException) cause;
+                throw ioEx;
+            }
+            throw new IOException(cause.getMessage(), cause);
+        } catch (TimeoutException ex4) {
+            throw new IOException("Request timed out: " + ex4.getMessage(), ex4);
+        }
+    }
+
+    private HttpRequest buildRequest(HttpHeaders headers, @Nullable StreamingHttpOutputMessage.Body body) {
+        HttpRequest.Builder builder = HttpRequest.newBuilder().uri(this.uri);
+        if (this.timeout != null) {
+            builder.timeout(this.timeout);
+        }
+        headers.forEach((headerName, headerValues) -> {
+            if (!DISALLOWED_HEADERS.contains(headerName.toLowerCase())) {
+                Iterator it = headerValues.iterator();
+                while (it.hasNext()) {
+                    String headerValue = (String) it.next();
+                    builder.header(headerName, headerValue);
+                }
+            }
+        });
+        builder.method(this.method.name(), bodyPublisher(headers, body));
+        return builder.build();
+    }
+
+    private HttpRequest.BodyPublisher bodyPublisher(HttpHeaders headers, @Nullable StreamingHttpOutputMessage.Body body) {
+        if (body != null) {
+            Flow.Publisher<ByteBuffer> outputStreamPublisher = OutputStreamPublisher.create(outputStream -> {
+                body.writeTo(StreamUtils.nonClosing(outputStream));
+            }, BYTE_MAPPER, this.executor);
+            long contentLength = headers.getContentLength();
+            if (contentLength > 0) {
+                return HttpRequest.BodyPublishers.fromPublisher(outputStreamPublisher, contentLength);
+            }
+            if (contentLength == 0) {
+                return HttpRequest.BodyPublishers.noBody();
+            }
+            return HttpRequest.BodyPublishers.fromPublisher(outputStreamPublisher);
+        }
+        return HttpRequest.BodyPublishers.noBody();
+    }
+
+    private static Set<String> disallowedHeaders() {
+        TreeSet<String> headers = new TreeSet<>((Comparator<? super String>) String.CASE_INSENSITIVE_ORDER);
+        headers.addAll(Set.of("connection", "content-length", "expect", "host", Constants.CONNECTION_HEADER_VALUE));
+        String headersToAllow = System.getProperty("jdk.httpclient.allowRestrictedHeaders");
+        if (headersToAllow != null) {
+            Set<String> toAllow = StringUtils.commaDelimitedListToSet(headersToAllow);
+            headers.removeAll(toAllow);
+        }
+        return Collections.unmodifiableSet(headers);
+    }
+
+    /* loaded from: server.jar:BOOT-INF/lib/spring-web-6.1.3.jar:org/springframework/http/client/JdkClientHttpRequest$ByteBufferMapper.class */
+    private static final class ByteBufferMapper implements OutputStreamPublisher.ByteMapper<ByteBuffer> {
+        private ByteBufferMapper() {
+        }
+
+        /* JADX WARN: Can't rename method to resolve collision */
+        @Override // org.springframework.http.client.OutputStreamPublisher.ByteMapper
+        public ByteBuffer map(int b) {
+            ByteBuffer byteBuffer = ByteBuffer.allocate(1);
+            byteBuffer.put((byte) b);
+            byteBuffer.flip();
+            return byteBuffer;
+        }
+
+        /* JADX WARN: Can't rename method to resolve collision */
+        @Override // org.springframework.http.client.OutputStreamPublisher.ByteMapper
+        public ByteBuffer map(byte[] b, int off, int len) {
+            ByteBuffer byteBuffer = ByteBuffer.allocate(len);
+            byteBuffer.put(b, off, len);
+            byteBuffer.flip();
+            return byteBuffer;
+        }
+    }
+}

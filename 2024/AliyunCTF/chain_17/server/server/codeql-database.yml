@@ -1,0 +1,42 @@
+---
+sourceLocationPrefix: D:\BaiduSyncdisk\ctf-challenges\1diot9\java-challenges\AliyunCTF\24\attachment\chain_17\server\sources
+baselineLinesOfCode: 895449
+unicodeNewlines: false
+columnKind: utf16
+primaryLanguage: java
+inProgress:
+  primaryLanguage: java
+  installedExtractors:
+    actions:
+     - D:/CodeQL/codeql-cli-2.20.4/actions
+    cpp:
+     - D:/CodeQL/codeql-cli-2.20.4/cpp
+    csharp:
+     - D:/CodeQL/codeql-cli-2.20.4/csharp
+    csv:
+     - D:/CodeQL/codeql-cli-2.20.4/csv
+    go:
+     - D:/CodeQL/codeql-cli-2.20.4/go
+    html:
+     - D:/CodeQL/codeql-cli-2.20.4/html
+    java:
+     - D:/CodeQL/codeql-cli-2.20.4/java
+    javascript:
+     - D:/CodeQL/codeql-cli-2.20.4/javascript
+    properties:
+     - D:/CodeQL/codeql-cli-2.20.4/properties
+    python:
+     - D:/CodeQL/codeql-cli-2.20.4/python
+    ruby:
+     - D:/CodeQL/codeql-cli-2.20.4/ruby
+    swift:
+     - D:/CodeQL/codeql-cli-2.20.4/swift
+    xml:
+     - D:/CodeQL/codeql-cli-2.20.4/xml
+    yaml:
+     - D:/CodeQL/codeql-cli-2.20.4/yaml
+creationMetadata:
+  cliVersion: 2.20.4
+  creationTime: 2025-04-22T08:25:24.185758300Z
+buildMode: none
+finalised: false

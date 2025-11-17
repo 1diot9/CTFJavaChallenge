@@ -1,0 +1,17 @@
+package org.springframework.aot.hint;
+
+/* loaded from: agent.jar:BOOT-INF/lib/spring-core-6.1.3.jar:org/springframework/aot/hint/MemberCategory.class */
+public enum MemberCategory {
+    PUBLIC_FIELDS,
+    DECLARED_FIELDS,
+    INTROSPECT_PUBLIC_CONSTRUCTORS,
+    INTROSPECT_DECLARED_CONSTRUCTORS,
+    INVOKE_PUBLIC_CONSTRUCTORS,
+    INVOKE_DECLARED_CONSTRUCTORS,
+    INTROSPECT_PUBLIC_METHODS,
+    INTROSPECT_DECLARED_METHODS,
+    INVOKE_PUBLIC_METHODS,
+    INVOKE_DECLARED_METHODS,
+    PUBLIC_CLASSES,
+    DECLARED_CLASSES
+}

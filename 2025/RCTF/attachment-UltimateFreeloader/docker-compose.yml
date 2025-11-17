@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  happy_shopping:
+    build: .
+    container_name: ultimatefreeloader
+    ports:
+      - "8086:8086"
+    environment:
+      MYSQL_ROOT_PASSWORD: rctf2025mysql
+      MYSQL_DATABASE: happy_shopping
+    restart: unless-stopped

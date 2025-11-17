@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Service Center - IDP Portal</title>
+    
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/portal.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="/portal" class="navbar-brand">IDP Application Center</a>
+            <div class="navbar-menu">
+                <a href="/portal">Application Services</a>
+                <div class="user-info">
+                    <div class="user-avatar"><%= user.display_name ? user.display_name[0] : user.username[0] %></div>
+                    <span><%= user.display_name || user.username %></span>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="portal-container">
+        <div class="welcome-card fade-in">
+            <h1 class="welcome-title">Welcome back, <%= user.display_name || user.username %>!</h1>
+            <p class="welcome-subtitle">Quick access to your application services</p>
+            <div class="user-type-badge <%= user.type === 0 ? 'authorized' : 'restricted' %>">
+                <%= user.type === 0 ? 'Invited User - Full Access' : 'Regular User - No Application Access' %>
+            </div>
+        </div>
+
+            <% if (user.type === 0) { %>
+            <% if (services && services.length > 0) { %>
+                <h2 class="section-title">Available Application Services</h2>
+                <div class="services-grid">
+                    <% services.forEach(service => { %>
+                        <% if (service.protocol === 'saml') { %>
+                            <a href="/saml/idp/<%= service.service_id %>" class="service-card">
+                                <div class="service-icon"><%= service.icon || '📦' %></div>
+                                <div class="service-name"><%= service.name %></div>
+                                <div class="service-description"><%= service.description || 'No description' %></div>
+                                <span class="service-protocol saml">SAML 2.0</span>
+                            </a>
+                        <% } else if (service.protocol === 'oauth2') { %>
+                            <div class="service-card" onclick="alert('OAuth2 applications require authorization requests from the application side')">
+                                <div class="service-icon"><%= service.icon || '📦' %></div>
+                                <div class="service-name"><%= service.name %></div>
+                                <div class="service-description"><%= service.description || 'No description' %></div>
+                                <span class="service-protocol oauth2">OAuth 2.0</span>
+                            </div>
+                        <% } %>
+                    <% }); %>
+                </div>
+            <% } else { %>
+                <div class="empty-state">
+                    <div class="empty-state-icon">📭</div>
+                    <h3>No Available Application Services</h3>
+                    <p>Please contact the administrator to configure application services</p>
+                </div>
+            <% } %>
+        <% } else { %>
+            <div class="no-permission">
+                <h3>No Application Access Permission</h3>
+                <p>You are currently a regular user and cannot access application services.</p>
+                <p>Please contact the administrator to obtain an invitation code and re-register as an invited user to gain full access.</p>
+            </div>
+        <% } %>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Unified Identity Authentication Center | IDP Portal</p>
+    </footer>
+</body>
+</html>

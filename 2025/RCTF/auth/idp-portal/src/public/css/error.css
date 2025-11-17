@@ -1,0 +1,26 @@
+.error-accent {
+    width: 60px;
+    height: 4px;
+    background: var(--error);
+    margin: 0 auto 32px;
+    border-radius: 2px;
+}
+
+.error-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: var(--error-bg);
+    border: 2px solid #ffccc7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: var(--error);
+    font-weight: 700;
+}
+
+.card .error-icon + .card-title {
+    color: var(--error);
+}

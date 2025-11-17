@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: idp-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: RCTF2025
+      MYSQL_DATABASE: auth
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+#    volumes:
+#      - mysql_data:/var/lib/mysql
+
+  idp:
+    build:
+      context: idp-portal
+      dockerfile: Dockerfile
+    container_name: idp
+    restart: always
+    environment:
+      DB_HOST: mysql
+      ADMIN_PASSWORD: RCTF2025
+    ports:
+      - "80:80"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    command: >
+      sh -c "
+        npm run generate-keys &&
+        npm run migrate &&
+        npm run add-admin || true &&
+        npm start
+      "
+  sp:
+    build:
+      context: sp-flag
+      dockerfile: Dockerfile
+    container_name: sp
+    restart: always
+    environment:
+      FLAG: RCTF{test_flag}
+      IDP_METADATA_URL: http://idp/saml/metadata
+    ports:
+      - "26000:26000"
+    depends_on:
+      - idp
+    command: >
+      sh -c "
+        python3 fetch_metadata.py &&
+        python3 app.py
+      "

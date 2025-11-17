@@ -1,0 +1,33 @@
+package cn.hutool.extra.tokenizer;
+
+import cn.hutool.core.exceptions.ExceptionUtil;
+import cn.hutool.core.util.StrUtil;
+
+/* loaded from: agent.jar:BOOT-INF/lib/hutool-all-5.8.16.jar:cn/hutool/extra/tokenizer/TokenizerException.class */
+public class TokenizerException extends RuntimeException {
+    private static final long serialVersionUID = 8074865854534335463L;
+
+    public TokenizerException(Throwable e) {
+        super(ExceptionUtil.getMessage(e), e);
+    }
+
+    public TokenizerException(String message) {
+        super(message);
+    }
+
+    public TokenizerException(String messageTemplate, Object... params) {
+        super(StrUtil.format(messageTemplate, params));
+    }
+
+    public TokenizerException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
+
+    public TokenizerException(String message, Throwable throwable, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, throwable, enableSuppression, writableStackTrace);
+    }
+
+    public TokenizerException(Throwable throwable, String messageTemplate, Object... params) {
+        super(StrUtil.format(messageTemplate, params), throwable);
+    }
+}

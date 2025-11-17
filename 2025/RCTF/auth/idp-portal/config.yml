@@ -1,0 +1,50 @@
+server:
+  port: 80
+  host: auth.rctf.rois.team
+  env: development
+  certPath: src/config/pem/idp-cert.pem
+  privateKeyPath: src/config/pem/idp-key.pem
+
+database:
+  host: localhost
+  port: 3306
+  user: root
+  password: RCTF2025
+  database: auth
+  connectionLimit: 10
+  waitForConnections: true
+  queueLimit: 0
+
+session:
+  resave: false
+  saveUninitialized: false
+  cookie:
+    httpOnly: true
+    maxAge: 86400000
+
+saml:
+  issuer: http://auth.rctf.rois.team
+
+services:
+  - id: Flag
+    name: Flag
+    description: Where you can get the flag
+    icon: RCTF2025
+    protocol: saml
+    enabled: true
+    config:
+      entity_id: http://auth-flag.rctf.rois.team:26000/
+      acs_url: http://auth-flag.rctf.rois.team:26000/saml/acs
+      slo_url: http://auth-flag.rctf.rois.team:26000/saml/slo
+
+logging:
+  level: debug
+  format: dev
+
+security:
+  cors:
+    enabled: true
+    origin: '*'
+    credentials: true
+  helmet:
+    enabled: true

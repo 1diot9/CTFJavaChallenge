@@ -1,0 +1,10 @@
+version: "3"
+services:
+  challenge:
+    build: .
+    image: challenge_2024_n1ctf-junior_web_derby
+    ports:
+    - 10800:8080
+    environment:
+    - FLAG=ctfhub{test_flag}
+    - DOMAIN=test.sandbox.ctfhub.com
