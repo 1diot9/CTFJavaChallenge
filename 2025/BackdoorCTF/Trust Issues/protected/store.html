@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel</title>
+
+  <style>
+   body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f4f7;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Fade-in animation */
+  animation: fadein 0.4s ease-in;
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+  width: 900px;
+  max-width: 95%;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+  padding: 30px 35px 35px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eceff5;
+  padding-bottom: 12px;
+}
+
+h1 {
+  margin: 0;
+  color: #333;
+  font-size: 26px;
+}
+
+.subtitle {
+  color: #777;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.back-link {
+  font-size: 14px;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid #d0d7e2;
+  color: #4a90e2;
+  background: #f7f9fc;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.back-link:hover {
+  background: #e9f0ff;
+  transform: translateY(-1px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr;
+  gap: 24px;
+  margin-top: 15px;
+}
+
+.card-section-title {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+.section {
+  border-radius: 10px;
+  border: 1px solid #e3e7ee;
+  padding: 18px 20px 20px;
+  background: #fafbff;
+
+  /* subtle card hover */
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.section:hover {
+  box-shadow: 0 6px 22px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+}
+
+label {
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccd2dd;
+  font-size: 14px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+  resize: vertical;
+  font-family: monospace;
+
+  /* focus animation */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74,144,226,0.4);
+}
+
+textarea {
+  min-height: 160px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: #4a90e2;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #3a7bcc;
+}
+
+.btn-outline {
+  background: #ffffff;
+  color: #4a90e2;
+  border: 1px solid #c5d4f3;
+}
+
+.btn-outline:hover {
+  background: #eaf1ff;
+}
+
+#status,
+#apply-status {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+#file-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 8px 0 0;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+#file-list li {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #e1e5f0;
+  margin-bottom: 6px;
+  font-family: monospace;
+  font-size: 13px;
+  background: #ffffff;
+
+  /* hover animation */
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+#file-list li:hover {
+  background: #f1f5ff;
+  transform: translateX(3px);
+}
+
+.apply-row {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+  </style>
+  
+
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+        <h1>Admin Panel</h1>
+        <div class="subtitle">Store files in <code>tmp</code>.</div>
+      </div>
+      <a href="/index" class="back-link">← Back to Home</a>
+    </div>
+
+    <div class="grid">
+      
+      <div class="section">
+        <h2 class="card-section-title">Store File</h2>
+
+        <form id="configForm">
+          <label for="filename">Filename </label>
+          <input id="filename" name="filename" type="text" required>
+
+          <label for="fileContent">File Content:</label>
+          <textarea id="fileContent" name="fileContent" required></textarea>
+
+          <button type="submit" class="btn btn-primary">Save file</button>
+        </form>
+
+        <p id="status"></p>
+
+<pre id="parsedOutput"></pre>
+    </div>
+      <div class="section">
+        <h2 class="card-section-title">Files in <code>tmp</code></h2>
+        <ul id="file-list">
+          <li>Loading...</li>
+        </ul>
+      </div>
+    
+  </div>
+
+  <script>
+    async function loadFiles() {
+      const ul = document.getElementById('file-list');
+      ul.innerHTML = '<li>Loading...</li>';
+
+      try {
+        const res = await fetch('/admin/files');
+        const data = await res.json();
+
+        ul.innerHTML = '';
+        if (!data.files || data.files.length === 0) {
+          ul.innerHTML = '<li>No files found.</li>';
+          return;
+        }
+
+        data.files.forEach(f => {
+          const li = document.createElement('li');
+          li.textContent = f;
+          ul.appendChild(li);
+        });
+      } catch (err) {
+        ul.innerHTML = '<li>Error loading files.</li>';
+        console.error(err);
+      }
+    }
+
+    document.getElementById('configForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const filename = document.getElementById('filename').value;
+      const fileContent = document.getElementById('fileContent').value;
+      const status = document.getElementById('status');
+
+      try {
+        const res = await fetch('/admin/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ filename, fileContent })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          status.textContent = `✔ Saved file: ${data.filename}`;
+          if (data.result) {
+          const parsedBox = document.getElementById('parsedOutput'); 
+          parsedBox.innerText = JSON.stringify(data.result, null, 2);
+  }
+          await loadFiles();
+        } else {
+          status.textContent = 'Failed to save file';
+          status.style.color = 'red';
+        }
+      } catch (err) {
+        status.textContent = 'Error saving file';
+        status.style.color = 'red';
+        console.error(err);
+      }
+    });
+
+    loadFiles();
+  </script>
+  <script>
+  const theme = document.cookie.includes("theme=dark") ? "dark" : "light";
+  document.body.classList.add(theme);
+</script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - MarketFlow</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #0f172a; color: #e2e8f0; }
+        .navbar { background-color: #1e293b; color: #e2e8f0; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.3); border-bottom: 1px solid #334155; }
+        .navbar h1 { font-size: 1.2rem; }
+        .navbar .user-info { display: flex; align-items: center; gap: 15px; }
+        .navbar .username { color: #94a3b8; font-size: 0.9rem; }
+        .navbar button { background: none; border: 1px solid #475569; padding: 8px 15px; color: #e2e8f0; border-radius: 4px; cursor: pointer; font-weight: 500; transition: background-color 0.2s; }
+        .navbar button:hover { background-color: #334155; }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        .section { background: #1e293b; border-radius: 8px; padding: 30px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); border: 1px solid #334155; }
+        .section h2 { color: #f1f5f9; margin-bottom: 20px; font-size: 1.4rem; border-bottom: 1px solid #334155; padding-bottom: 10px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; color: #cbd5e1; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem; }
+        input[type="text"], input[type="number"], select { width: 100%; padding: 10px; border: 1px solid #475569; border-radius: 4px; font-size: 1rem; background: #0f172a; color: #e2e8f0; transition: border-color 0.2s; }
+        input:focus, select:focus { outline: none; border-color: #3b82f6; }
+        .btn { padding: 10px 20px; background-color: #10b981; color: white; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; transition: background-color 0.2s; }
+        .btn:hover { background-color: #059669; }
+        .message { padding: 10px; border-radius: 4px; margin-bottom: 15px; display: none; font-size: 0.9rem; }
+        .message.error { background: #7f1d1d; color: #fecaca; border: 1px solid #dc2626; }
+        .message.success { background: #1f3a1f; color: #86efac; border: 1px solid #16a34a; }
+        .campaign-list { display: grid; gap: 10px; }
+        .campaign-item { border: 1px solid #475569; border-left: 5px solid #3b82f6; border-radius: 4px; padding: 15px; background: #0f172a; }
+        .campaign-item h3 { color: #f1f5f9; font-size: 1.1rem; margin-bottom: 5px; }
+        .campaign-item p { color: #94a3b8; font-size: 0.85rem; }
+        .report-link { display: inline-block; margin-top: 10px; color: #3b82f6; text-decoration: none; font-weight: 500; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>MarketFlow Dashboard</h1>
+        <div class="user-info">
+            <span class="username">{{ username }}</span>
+            <button onclick="logout()">Sign Out</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="grid">
+            <div class="main-content">
+                <div class="section">
+                    <h2>Campaign Management</h2>
+                    <div id="campaignMessage" class="message"></div>
+                    <form id="campaignForm">
+                        <div class="form-group">
+                            <label>Campaign Name</label>
+                            <input type="text" id="campaignName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Target Audience</label>
+                            <input type="text" id="targetAudience" placeholder="e.g., 18-35, tech enthusiasts" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Budget ($)</label>
+                            <input type="number" id="budget" value="1000">
+                        </div>
+                        <button type="submit" class="btn">Create Campaign</button>
+                    </form>
+                </div>
+                
+                <div class="section">
+                    <h2>My Campaigns</h2>
+                    <div id="campaignList" class="campaign-list">
+                        <p style="color: #94a3b8;">Loading campaigns...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="section">
+                    <h2>Analytics Reports</h2>
+                    <div id="reportMessage" class="message"></div>
+                    <form id="reportForm">
+                        <div class="form-group">
+                            <label>Report Type</label>
+                            <select id="reportType">
+                                <option value="campaign_performance">Campaign Performance</option>
+                                <option value="audience_insights">Audience Insights</option>
+                                <option value="roi_analysis">ROI Analysis</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Date Range</label>
+                            <select id="dateRange">
+                                <option value="last_7_days">Last 7 Days</option>
+                                <option value="last_30_days">Last 30 Days</option>
+                                <option value="last_quarter">Last Quarter</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn">Generate Report</button>
+                    </form>
+                    <div id="reportLink"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        async function checkAuth() {
+            try {
+                const resp = await fetch('/api/campaigns');
+                if (resp.status === 401) {
+                    window.location.href = '/login.html';
+                }
+            } catch (err) {
+                // Ignore network errors on load
+            }
+        }
+        
+        async function logout() {
+            await fetch('/api/auth/logout', {method: 'POST'});
+            window.location.href = '/';
+        }
+        
+        async function loadCampaigns() {
+            try {
+                const resp = await fetch('/api/campaigns');
+                if (resp.ok) {
+                    const campaigns = await resp.json();
+                    const list = document.getElementById('campaignList');
+                    if (campaigns.length === 0) {
+                        list.innerHTML = '<p style="color: #94a3b8;">No campaigns yet. Create one above!</p>';
+                    } else {
+
+                        list.innerHTML = campaigns.map(c => {
+                            let config = {};
+                            try {
+                                config = JSON.parse(c.config);
+                            } catch(e) {}
+                            return `
+                                <div class="campaign-item">
+                                    <h3>${c.name}</h3>
+                                    <p>Target: ${config.target_audience || 'N/A'} | Status: ${c.status} | Created: ${new Date(c.created_at).toLocaleDateString()}</p>
+                                </div>
+                            `;
+                        }).join('');
+                    }
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        
+        document.getElementById('campaignForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const msg = document.getElementById('campaignMessage');
+            
+            const data = {
+                _type: 'Campaign',
+                name: document.getElementById('campaignName').value,
+                target_audience: document.getElementById('targetAudience').value,
+                budget: parseInt(document.getElementById('budget').value)
+            };
+            
+            try {
+                const resp = await fetch('/api/campaigns', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+                
+                if (resp.ok) {
+                    msg.className = 'message success';
+                    msg.style.display = 'block';
+                    msg.textContent = 'Campaign created successfully!';
+                    e.target.reset();
+                    loadCampaigns();
+                } else {
+                    const result = await resp.json();
+                    msg.className = 'message error';
+                    msg.style.display = 'block';
+                    msg.textContent = result.error || 'Failed to create campaign';
+                }
+            } catch (err) {
+                msg.className = 'message error';
+                msg.style.display = 'block';
+                msg.textContent = 'Network error';
+            }
+        });
+        
+        document.getElementById('reportForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const msg = document.getElementById('reportMessage');
+            const linkDiv = document.getElementById('reportLink');
+            
+            const data = {
+                _type: 'ReportConfiguration',
+                report_type: document.getElementById('reportType').value,
+                date_range: document.getElementById('dateRange').value,
+                metrics: ['impressions', 'clicks', 'conversions'],
+                dimensions: ['campaign', 'date']
+            };
+            
+            try {
+                const resp = await fetch('/api/analytics/reports', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await resp.json();
+                
+                if (resp.ok) {
+                    msg.className = 'message success';
+                    msg.style.display = 'block';
+                    msg.textContent = 'Report generation scheduled.';
+                    
+                    if (result.report_url) {
+                        linkDiv.innerHTML = `<a href="${result.report_url}" target="_blank" class="report-link">View Report ${result.report_id.substring(0, 8)} →</a>`;
+                    }
+                } else {
+                    msg.className = 'message error';
+                    msg.style.display = 'block';
+                    msg.textContent = result.error || 'Failed to generate report';
+                }
+            } catch (err) {
+                msg.className = 'message error';
+                msg.style.display = 'block';
+                msg.textContent = 'Network error';
+            }
+        });
+        
+        checkAuth();
+        loadCampaigns();
+    </script>
+</body>
+</html>

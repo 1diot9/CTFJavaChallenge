@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}MCP Protocol Hub - Connect to the Future{% endblock %}
+
+{% block content %}
+<div class="text-center text-white">
+    <div class="mb-8">
+        <h1 class="text-5xl font-bold mb-4 protocol-text">
+            <span class="text-yellow-400">&lt;</span>Model Context Protocol<span class="text-yellow-400">/&gt;</span>
+        </h1>
+        <p class="text-2xl mb-4 text-purple-300">Seamless AI-to-Application Communication</p>
+        <p class="text-lg mb-8 text-gray-300 max-w-2xl mx-auto">
+            Experience the power of MCP protocol - enabling intelligent context sharing between AI models and your applications.
+        </p>
+    </div>
+    <div class="space-x-4">
+        <a href="{{ url_for('auth.login') }}" class="dark-card hover:bg-purple-900 hover:bg-opacity-50 text-white font-bold py-3 px-6 rounded-lg transition duration-300 inline-block shadow-lg">
+            🔌 Connect
+        </a>
+        <a href="{{ url_for('auth.register') }}" class="mcp-gradient hover:opacity-90 text-white font-bold py-3 px-6 rounded-lg transition duration-300 inline-block shadow-xl">
+            ⚡ Register Node
+        </a>
+    </div>
+</div>
+
+<div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="dark-card p-6 rounded-lg shadow-xl hover:scale-105 hover:border-purple-500 transition duration-300">
+        <div class="text-4xl mb-4">🔗</div>
+        <h2 class="text-xl font-semibold mb-4 text-white protocol-text">Protocol Integration</h2>
+        <p class="text-gray-300">Connect AI models with your applications through standardized MCP protocol endpoints.</p>
+    </div>
+    <div class="dark-card p-6 rounded-lg shadow-xl hover:scale-105 hover:border-purple-500 transition duration-300">
+        <div class="text-4xl mb-4">🧠</div>
+        <h2 class="text-xl font-semibold mb-4 text-white protocol-text">Context Sharing</h2>
+        <p class="text-gray-300">Share rich contextual data between AI systems and applications securely and efficiently.</p>
+    </div>
+    <div class="dark-card p-6 rounded-lg shadow-xl hover:scale-105 hover:border-purple-500 transition duration-300">
+        <div class="text-4xl mb-4">⚡</div>
+        <h2 class="text-xl font-semibold mb-4 text-white protocol-text">Real-time Processing</h2>
+        <p class="text-gray-300">Enable real-time communication and processing through advanced MCP proxy servers.</p>
+    </div>
+</div>
+
+<div class="mt-16 dark-card p-8 rounded-lg text-white shadow-xl border border-purple-800">
+    <h2 class="text-3xl font-bold mb-4 protocol-text text-center">What is MCP?</h2>
+    <div class="max-w-3xl mx-auto text-gray-300 space-y-3">
+        <p>The <strong class="text-purple-400">Model Context Protocol (MCP)</strong> is an open protocol that enables seamless integration between AI applications and data sources.</p>
+        <p>MCP provides a standardized way to connect AI models with the context they need - from local files and databases to remote APIs and services.</p>
+        <p class="text-sm protocol-text text-gray-400 border-l-4 border-yellow-500 pl-4 mt-4 bg-black bg-opacity-30 py-3 rounded">
+            → Connect your AI tools with your data<br>
+            → Build powerful integrations with simple protocols<br>
+            → Experience the future of AI-powered applications
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,7 @@
+venv
+**/venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+notes.db
+exploit.py

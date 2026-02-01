@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <users>
+        <user>
+            <username>jdoe</username>
+            <password>summer2023</password>
+            <role>employee</role>
+            <id>101</id>
+        </user>
+        <user>
+            <username>admin</username>
+            <password>fakepassword</password> 
+            <role>admin</role>
+            <id>001</id>
+        </user>
+</database>

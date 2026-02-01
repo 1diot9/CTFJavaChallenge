@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Register - MarketFlow{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="header">
+        <h1>MarketFlow</h1>
+        <p>Create your account</p>
+    </div>
+    <div id="message" class="message"></div>
+    <form id="registerForm">
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" id="username" required>
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" required>
+        </div>
+        <button type="submit" class="btn">Register</button>
+    </form>
+    <div class="link-switch">
+        Already have an account? <a href="/login.html">Sign In</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const msg = document.getElementById('message');
+        const data = {
+            username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value
+        };
+        
+        try {
+            const resp = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            
+            const result = await resp.json();
+            
+            if (resp.ok) {
+                msg.className = 'message success';
+                msg.style.display = 'block';
+                msg.textContent = 'Account created! Redirecting to login...';
+                setTimeout(() => window.location.href = '/login.html', 1500);
+            } else {
+                msg.className = 'message error';
+                msg.style.display = 'block';
+                msg.textContent = result.error || 'Registration failed';
+            }
+        } catch (err) {
+            msg.className = 'message error';
+            msg.style.display = 'block';
+            msg.textContent = 'Network error';
+        }
+    });
+</script>
+{% endblock %}

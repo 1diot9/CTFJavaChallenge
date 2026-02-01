@@ -1,0 +1,44 @@
+services:
+  challenge:
+    build:
+      context: web
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 6001:6001
+    environment:
+      - CHALL_PORT=6001
+      - SECRET=definitely_not_the_correct_one
+      - MCP_PROXY_URL=http://192.168.92.23:8000
+    networks:
+      app_network:
+        ipv4_address: 192.168.92.21
+  mcp_proxy:
+    build: mcp_proxy
+    restart: always
+    environment:
+      - PROXY_PORT=8000
+      - SECRET=definitely_not_the_correct_one
+    networks:
+      app_network:
+        ipv4_address: 192.168.92.23
+  bot:
+    build: bot
+    restart: always
+    ports:
+      - 6002:4003
+    environment:
+      - APPURL=http://challenge.com:6001
+      - ADMIN_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxfQ.B56T62Qj4xuQdpk59vtZ3Sg-5_lBPzgJnmDZ74N-oUs
+    extra_hosts:
+      - "challenge.com:192.168.92.21"
+      - "client.challenge.com:192.168.92.21"
+    networks:
+      app_network:
+        ipv4_address: 192.168.92.22
+networks:
+  app_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.92.0/24"

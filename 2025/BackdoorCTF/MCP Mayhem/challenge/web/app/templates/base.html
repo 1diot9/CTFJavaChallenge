@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MCP Protocol Hub{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+        }
+        .glass-effect {
+            background: rgba(15, 12, 41, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 100, 150, 0.3);
+        }
+        .mcp-gradient {
+            background: linear-gradient(90deg, #4c1d95 0%, #5b21b6 50%, #6d28d9 100%);
+        }
+        .protocol-text {
+            font-family: 'Courier New', monospace;
+            letter-spacing: 0.05em;
+        }
+        .dark-card {
+            background: rgba(20, 20, 40, 0.8);
+            border: 1px solid rgba(100, 100, 150, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <nav class="glass-effect text-white p-4 shadow-lg border-b border-purple-800">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{{ url_for('auth.landing') }}" class="text-2xl font-bold protocol-text flex items-center">
+                <span class="text-yellow-400">&lt;</span>
+                <span class="text-purple-300">MCP</span>
+                <span class="text-yellow-400">/&gt;</span>
+                <span class="ml-2 text-lg text-gray-300">Protocol Hub</span>
+            </a>
+            <ul class="flex space-x-6">
+                {% if request.cookies.get('session', '') != '' %}
+                    <li><a href="{{ url_for('auth.profile') }}" class="hover:text-yellow-400 transition duration-300">Profile</a></li>
+                    <li><a href="{{ url_for('auth.logout') }}" class="hover:text-red-400 transition duration-300">Disconnect</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('auth.login') }}" class="hover:text-yellow-400 transition duration-300">Connect</a></li>
+                    <li><a href="{{ url_for('auth.register') }}" class="hover:text-green-400 transition duration-300">Register</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-8 px-4 flex-grow">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="dark-card border-l-4 border-yellow-500 text-white p-4 mb-4 rounded shadow-lg" role="alert">
+                        <span class="protocol-text">⚠ {{ message }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="glass-effect text-center p-4 mt-8 text-white">
+        <p class="protocol-text">&copy; 2025 Model Context Protocol Hub. Secure Protocol Communication.</p>
+    </footer>
+</body>
+</html>
+

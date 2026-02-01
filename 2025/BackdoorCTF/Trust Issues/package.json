@@ -1,0 +1,21 @@
+{
+  "name": "backdoor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@xmldom/xmldom": "^0.8.11",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.1.0",
+    "js-yaml": "^2.0.4",
+    "xpath": "^0.0.34"
+  }
+}

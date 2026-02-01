@@ -1,0 +1,18 @@
+services:
+  marketflow:
+    build: .
+    container_name: marketflow_app
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - DB_PATH=/var/tmp/sessionmaze/app.db
+    tmpfs:
+      - /tmp:noexec,nosuid,nodev,size=100m
+      - /var/tmp/sessionmaze:exec,nosuid,nodev,size=500m
+    restart: unless-stopped
+    networks:
+      - marketflow_net
+
+networks:
+  marketflow_net:

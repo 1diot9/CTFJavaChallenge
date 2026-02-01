@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Login - MarketFlow{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="header">
+        <h1>MarketFlow</h1>
+        <p>Sign in to continue</p>
+    </div>
+    <div id="message" class="message"></div>
+    <form id="loginForm">
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" id="username" required>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" required>
+        </div>
+        <button type="submit" class="btn">Sign In</button>
+    </form>
+    <div class="link-switch">
+        Don't have an account? <a href="/register.html">Create one</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const msg = document.getElementById('message');
+        const data = {
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value
+        };
+        
+        try {
+            const resp = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            
+            const result = await resp.json();
+            
+            if (resp.ok) {
+                msg.className = 'message success';
+                msg.style.display = 'block';
+                msg.textContent = 'Login successful! Redirecting...';
+                setTimeout(() => window.location.href = '/dashboard.html', 1000);
+            } else {
+                msg.className = 'message error';
+                msg.style.display = 'block';
+                msg.textContent = result.error || 'Login failed';
+            }
+        } catch (err) {
+            msg.className = 'message error';
+            msg.style.display = 'block';
+            msg.textContent = 'Network error';
+        }
+    });
+</script>
+{% endblock %}

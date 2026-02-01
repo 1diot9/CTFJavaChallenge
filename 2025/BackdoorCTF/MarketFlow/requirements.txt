@@ -1,0 +1,4 @@
+Flask
+Werkzeug
+requests
+gunicorn

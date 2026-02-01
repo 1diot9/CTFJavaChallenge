@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cozy Photo Gallery</title>
+  <style>
+    body {
+      margin: 0;
+      background: #f2f4f7;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      width: 600px;
+      max-width: 95%;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+      text-align: center;
+    }
+    h1 {
+      margin: 0;
+      font-size: 26px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 12px;
+    }
+    .viewer {
+      margin-top: 25px;
+    }
+    .image-frame {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #e3e7f2;
+      background: #fafbff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      display: inline-block;
+    }
+    .image-frame img {
+      width: 100%;
+      max-width: 480px;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+    .card-title {
+      padding: 10px;
+      font-size: 14px;
+      color: #444;
+    }
+    .controls {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      align-items: center;
+    }
+    button {
+      border: none;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+      background: #3b82f6;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(59,130,246,0.35);
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+    }
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(59,130,246,0.45);
+      background: #2563eb;
+    }
+    .counter {
+      font-size: 13px;
+      color: #666;
+    }
+    .hint {
+      margin-top: 18px;
+      color: #666;
+      font-size: 13px;
+      border-top: 1px dashed #ccc;
+      padding-top: 10px;
+    }
+    code {
+      background: #f2f4ff;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+    a.image-link {
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Cozy Photo Gallery</h1>
+
+    <div class="viewer">
+      <a id="imageLink" class="image-link" href="#" target="_blank">
+        <div class="image-frame">
+          <img id="mainImage" src="" alt="image">
+        </div>
+      </a>
+      <div id="imageTitle" class="card-title">Loading…</div>
+    </div>
+
+    <div class="controls">
+      <div class="counter" id="counterText">0 / 0</div>
+      <button id="nextBtn">Next ▶</button>
+    </div>
+  </div>
+
+  <script>
+    const files = /*IMAGE_LIST_HERE*/;
+
+    console.log('Files from server:', files);
+
+    let images = (files || []).map(f => ({ file: f, title: f }));
+    let currentIndex = 0;
+
+    const imgEl = document.getElementById('mainImage');
+    const titleEl = document.getElementById('imageTitle');
+    const linkEl = document.getElementById('imageLink');
+    const counterEl = document.getElementById('counterText');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function renderImage() {
+      if (!images.length) {
+        titleEl.textContent = 'No images found in /images';
+        imgEl.src = '';
+        linkEl.href = '#';
+        counterEl.textContent = '0 / 0';
+        return;
+      }
+
+      const current = images[currentIndex];
+      const url = '/image?file=' + encodeURIComponent(current.file);
+
+      imgEl.src = url;
+      imgEl.alt = current.title;
+      titleEl.textContent = current.title;
+      linkEl.href = url;
+      counterEl.textContent = (currentIndex + 1) + ' / ' + images.length;
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (!images.length) return;
+      currentIndex = (currentIndex + 1) % images.length;
+      renderImage();
+    });
+
+    renderImage();
+  </script>
+</body>
+</html>

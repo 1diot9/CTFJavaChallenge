@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Register MCP Node{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto dark-card p-8 rounded-lg shadow-2xl border border-purple-800">
+    <div class="text-center mb-6">
+        <div class="text-5xl mb-4">⚡</div>
+        <h2 class="text-3xl font-bold text-white protocol-text">Register Node</h2>
+        <p class="text-gray-400 mt-2">Initialize new MCP protocol endpoint</p>
+    </div>
+    <form method="POST" action="{{ url_for('auth.register') }}">
+        <div class="mb-4">
+            <label class="block text-gray-300 text-sm font-bold mb-2 protocol-text" for="username">
+                <span class="text-yellow-400">→</span> Node Username
+            </label>
+            <input class="shadow appearance-none border border-purple-700 rounded w-full py-2 px-3 bg-gray-900 bg-opacity-70 text-white placeholder-gray-500 leading-tight focus:outline-none focus:border-yellow-500 focus:bg-opacity-90" 
+                   id="username" 
+                   maxlength="20" 
+                   minlength="4" 
+                   name="username" 
+                   required 
+                   type="text" 
+                   value=""
+                   placeholder="4-20 characters">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-300 text-sm font-bold mb-2 protocol-text" for="password">
+                <span class="text-yellow-400">→</span> Access Key
+            </label>
+            <input class="shadow appearance-none border border-purple-700 rounded w-full py-2 px-3 bg-gray-900 bg-opacity-70 text-white placeholder-gray-500 mb-3 leading-tight focus:outline-none focus:border-yellow-500 focus:bg-opacity-90" 
+                   id="password" 
+                   name="password" 
+                   required 
+                   type="password" 
+                   value=""
+                   placeholder="Enter secure password">
+        </div>
+        <div class="mb-6">
+            <label class="block text-gray-300 text-sm font-bold mb-2 protocol-text" for="confirm_password">
+                <span class="text-yellow-400">→</span> Confirm Access Key
+            </label>
+            <input class="shadow appearance-none border border-purple-700 rounded w-full py-2 px-3 bg-gray-900 bg-opacity-70 text-white placeholder-gray-500 mb-3 leading-tight focus:outline-none focus:border-yellow-500 focus:bg-opacity-90" 
+                   id="confirm_password" 
+                   name="confirm_password" 
+                   required 
+                   type="password" 
+                   value=""
+                   placeholder="Confirm password">
+        </div>
+        <div class="mb-6">
+            <label class="block text-gray-300 text-sm font-bold mb-2 protocol-text" for="about">
+                <span class="text-yellow-400">→</span> Node Description
+            </label> 
+            <textarea class="shadow appearance-none border border-purple-700 rounded w-full py-2 px-3 bg-gray-900 bg-opacity-70 text-white placeholder-gray-500 mb-3 leading-tight focus:outline-none focus:border-yellow-500 focus:bg-opacity-90 h-24" 
+                      id="about" 
+                      name="about" 
+                      required
+                      placeholder="Describe your node's purpose and capabilities..."></textarea>
+        </div>
+        <div class="flex items-center justify-between">
+            <input class="mcp-gradient hover:opacity-90 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline cursor-pointer transition duration-300 shadow-lg" 
+                   id="submit" 
+                   name="submit" 
+                   type="submit" 
+                   value="⚡ Initialize Node">
+            <a class="inline-block align-baseline font-bold text-sm text-yellow-400 hover:text-yellow-300" href="{{ url_for('auth.login') }}">
+                Existing node?
+            </a>
+        </div>
+    </form>
+    {% if error %}
+    <div class="bg-red-900 bg-opacity-50 border border-red-600 text-red-200 px-4 py-3 rounded relative mt-4" role="alert">
+        <strong class="font-bold protocol-text">⚠ Registration Failed!</strong>
+        <span class="block sm:inline">{{ error }}</span>
+    </div>
+    {% endif %}
+</div>
+
+<div class="mt-8 text-center text-white">
+    <p class="protocol-text text-sm text-gray-400">
+        <span class="text-yellow-400">※</span> Secure MCP Protocol v1.0 
+        <span class="text-yellow-400">※</span>
+    </p>
+</div>
+{% endblock %}
+

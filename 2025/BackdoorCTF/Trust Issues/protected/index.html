@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f4f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: white;
+            width: 400px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        a {
+            display: block;
+            padding: 12px;
+            margin: 10px 0;
+            background: #4a90e2;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        a:hover {
+            background: #3a7bcc;
+        }
+
+        .logout {
+            background: #d9534f;
+        }
+
+        .logout:hover {
+            background: #c04845;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h1>Welcome</h1>
+        <p>You are logged in.</p>
+
+        <a href="/store">Go to Admin Panel</a>
+        <a href="/logout" class="logout">Logout</a>
+    </div>
+
+</body>
+</html>

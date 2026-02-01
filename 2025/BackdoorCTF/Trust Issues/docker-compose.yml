@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: trust-issues
+    ports:
+      - "6014:8000"     
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./public:/app/public:ro
+      - ./tmp:/app/tmp
+    restart: unless-stopped
